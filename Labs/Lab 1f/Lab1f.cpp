@@ -16,17 +16,17 @@ public:
     string getFirstName();
     string getLastName();
     int getAge();
-    void print();
+    virtual void print();
 };
 
-class UScitizen
+class UScitizen : public Person
 {
 private:
     Person person;
     int ssn;
 
 public:
-    UScitizen(Person _Person, int _SSN);
+    UScitizen(string _FirstName, string _LastName, int _Age, int _SSN);
     Person getPerson();
     void print();
 };
@@ -36,18 +36,17 @@ int main()
 
     Person person1("Henry", "Johnson", 45);
     Person person2("John", "Henry", 12);
-    Person person3("Steve", "Works", 40);
 
-    UScitizen citizen1(person1, 73);
-    UScitizen citizen2(person2, 60);
-    UScitizen citizen3(person3, 110);
+    UScitizen citizen1("King", "James", 457, 5);
+    UScitizen citizen2("Queen", "Victoria", 122, 15);
+    UScitizen citizen3("Brian", "Oleary", 20, 770);
 
+    person1.print();
+    person2.print();
+    cout << endl;
     citizen1.print();
-    cout << endl;
     citizen2.print();
-    cout << endl;
     citizen3.print();
-    cout << endl;
 
     return 0;
 }
@@ -80,9 +79,8 @@ void Person::print()
     cout << "Age: " << age << endl;
 }
 
-UScitizen::UScitizen(Person _Person, int _SSN)
-{
-    person = _Person;
+UScitizen::UScitizen(string _FirstName, string _LastName, int _Age, int _SSN) : Person(_FirstName, _LastName, _Age){
+    person = Person(_FirstName, _LastName, _Age);
     ssn = _SSN;
 }
 
