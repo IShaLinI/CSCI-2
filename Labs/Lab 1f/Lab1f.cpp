@@ -1,62 +1,38 @@
-//Andrew Card
+// Andrew Card
 
 #include <iostream>
 
 using namespace std;
 
-class Person {
+class Person
+{
 
     string firstName;
     string lastName;
     int age;
+
 public:
-    Person(string _FirstName = "", string _LastName = "", int _Age = -1){
-        firstName = _FirstName;
-        lastName = _LastName;
-        age = _Age;
-    }
-
-    string getFirstName(){
-        return firstName;
-    }
-
-    string getLastName(){
-        return lastName;
-    }
-
-    int getAge(){
-        return age;
-    }
-
-    void print(){
-        cout << "Name: " << lastName << " " << firstName << endl;
-        cout << "Age: " << age << endl;
-    }
-
-
+    Person(string _FirstName, string _LastName, int _Age);
+    string getFirstName();
+    string getLastName();
+    int getAge();
+    void print();
 };
 
-class UScitizen{
+class UScitizen
+{
 private:
     Person person;
     int ssn;
+
 public:
-    UScitizen(Person _Person, int _SSN){
-        person = _Person;
-        ssn = _SSN;
-    }
-
-    Person getPerson(){
-        return person;
-    }
-
-    void print(){
-        person.print();
-        cout << "SSN: " << ssn << endl;
-    }
+    UScitizen(Person _Person, int _SSN);
+    Person getPerson();
+    void print();
 };
 
-int main(){
+int main()
+{
 
     Person person1("Henry", "Johnson", 45);
     Person person2("John", "Henry", 12);
@@ -74,4 +50,49 @@ int main(){
     cout << endl;
 
     return 0;
+}
+
+Person::Person(string _FirstName = "", string _LastName = "", int _Age = -1)
+{
+    firstName = _FirstName;
+    lastName = _LastName;
+    age = _Age;
+}
+
+string Person::getFirstName()
+{
+    return firstName;
+}
+
+string Person::getLastName()
+{
+    return lastName;
+}
+
+int Person::getAge()
+{
+    return age;
+}
+
+void Person::print()
+{
+    cout << "Name: " << lastName << " " << firstName << endl;
+    cout << "Age: " << age << endl;
+}
+
+UScitizen::UScitizen(Person _Person, int _SSN)
+{
+    person = _Person;
+    ssn = _SSN;
+}
+
+Person UScitizen::getPerson()
+{
+    return person;
+}
+
+void UScitizen::print()
+{
+    person.print();
+    cout << "SSN: " << ssn << endl;
 }
