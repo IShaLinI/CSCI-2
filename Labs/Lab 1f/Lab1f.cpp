@@ -7,27 +7,24 @@ using namespace std;
 class Person
 {
 
-    string firstName;
-    string lastName;
-    int age;
-
 public:
     Person(string _FirstName, string _LastName, int _Age);
     string getFirstName();
     string getLastName();
     int getAge();
     virtual void print();
+
+    string firstName;
+    string lastName;
+    int age;
 };
 
 class UScitizen : public Person
 {
 private:
-    Person person;
     int ssn;
-
 public:
     UScitizen(string _FirstName, string _LastName, int _Age, int _SSN);
-    Person getPerson();
     void print();
 };
 
@@ -80,17 +77,12 @@ void Person::print()
 }
 
 UScitizen::UScitizen(string _FirstName, string _LastName, int _Age, int _SSN) : Person(_FirstName, _LastName, _Age){
-    person = Person(_FirstName, _LastName, _Age);
     ssn = _SSN;
-}
-
-Person UScitizen::getPerson()
-{
-    return person;
 }
 
 void UScitizen::print()
 {
-    person.print();
+    cout << "Name: " << lastName << " " << firstName << endl;
+    cout << "Age: " << age << endl;
     cout << "SSN: " << ssn << endl;
 }
