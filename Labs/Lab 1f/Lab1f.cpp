@@ -20,30 +20,33 @@ public:
 };
 
 class UScitizen : public Person
-{
-private:
-    int ssn;
+{ 
 public:
+    int ssn;
     UScitizen(string _FirstName, string _LastName, int _Age, int _SSN);
     void print();
 };
 
+class Employee : public UScitizen {
+
+private:
+    int employeeID;
+    double salary;
+public:
+    Employee(string _FirstName, string _LastName, int _Age, int _SSN, int _EmployeeID, double _Salary);
+    void print();
+
+};
+
+
 int main()
 {
 
-    Person person1("Henry", "Johnson", 45);
-    Person person2("John", "Henry", 12);
+    Employee employee1("Henry", "Johnson", 45, 123, 1, 1000.40);
+    Employee employee2("John", "Henry", 12, 456, 2, 2000.10);
 
-    UScitizen citizen1("King", "James", 457, 5);
-    UScitizen citizen2("Queen", "Victoria", 122, 15);
-    UScitizen citizen3("Brian", "Oleary", 20, 770);
-
-    person1.print();
-    person2.print();
-    cout << endl;
-    citizen1.print();
-    citizen2.print();
-    citizen3.print();
+    employee1.print();
+    employee2.print();
 
     return 0;
 }
@@ -85,4 +88,19 @@ void UScitizen::print()
     cout << "Name: " << lastName << " " << firstName << endl;
     cout << "Age: " << age << endl;
     cout << "SSN: " << ssn << endl;
+}
+
+Employee::Employee(string _FirstName, string _LastName, int _Age, int _SSN, int _EmployeeID, double _Salary) : UScitizen(_FirstName, _LastName, _Age, _SSN)
+{
+    employeeID = _EmployeeID;
+    salary = _Salary;
+}
+
+void Employee::print()
+{
+    cout << "Name: " << lastName << " " << firstName << endl;
+    cout << "Age: " << age << endl;
+    cout << "SSN: " << ssn << endl;
+    cout << "Employee ID: " << employeeID << endl;
+    cout << "Salary: " << salary << endl;
 }
