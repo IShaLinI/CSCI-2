@@ -15,9 +15,8 @@ void deleteElement(T array[], int size, int index){
 
 template<class T>
 void printArray(T array[], int size){
-    for(int i = 0; i < size; i++){
+    for(int i = 0; i < size; i++)
         cout << array[i] << " ";
-    }
     cout << endl;
 }
 
