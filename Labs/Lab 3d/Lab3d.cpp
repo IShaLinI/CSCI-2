@@ -6,10 +6,11 @@
 
 using namespace std;
 
-//Templated node
+//Creates a node class to store data of any single type
 template <typename T>
 class Node {
     public:
+        //Constructors for feeding some or no data
         Node(){
             data = T();
             next = nullptr;
@@ -22,35 +23,48 @@ class Node {
             data = d;
             next = n;
         };
+
+        //Method for grabbing a datapoint
         T getData(){
             return data;
         };
+
+        //Method for grabbing the next data node
         Node* getNext(){
             return next;
         };
+
+        //Method fors setting date of a node
         void setData(T d){
             data = d;
         };
+
+        //Method of settingt the address of the next node
         void setNext(Node* n) {
             next = n;
         };
     private:
+        //Node variable
         T data;
         Node* next;
 };
 
+//Print a node of any type
 template <typename T>
 void printList(Node<T>* head){
     Node<T>* current = head;
+    //Linked lists end somewhere so detect when you hit it
     while(current != NULL){
         cout << current->getData() << endl;
         current = current->getNext();
     }
 }
 
+//Prints a node reversed
 template <typename T>
 void printListReverse(Node<T>* head){
 
+    //The node structure doesnt go both ways so i just temp store in a vector
     vector<T> data;
 
     Node<T>* current = head;
@@ -65,8 +79,10 @@ void printListReverse(Node<T>* head){
 
 }
 
+//Grabs the length of a linked list of any type
 template <typename T>
 int getListLength(Node<T>* head){
+    //accum variable
     int length = 0;
     Node<T>* current = head;
     while(current != NULL){
@@ -76,6 +92,7 @@ int getListLength(Node<T>* head){
     return length;
 }
 
+//Merge 2 Linked lists together.
 template <typename T>
 Node<T>* mergeLists(Node<T>* head1, Node<T>* head2){
     Node<T>* current1 = head1;
@@ -116,15 +133,22 @@ Node<T>* mergeLists(Node<T>* head1, Node<T>* head2){
 }
 
 int main(){
+    //Define a list with a starter node at 0
     Node<int>* head1 = new Node<int>(0);
+    //Store the currently sook address
     Node<int>* current = head1;
+
     for(int i = 1; i < 5; i += 1){
+        //Loop through adding new nodes to the list
         current->setNext(new Node<int>(i));
         current = current->getNext();
     }
+
+    //Label and print the list
     cout << "List 1:" << endl;
     printList(head1);
     
+    //Define a list with a starter node of 5
     Node<int>* head2 = new Node<int>(5);
     current = head2;
     for(int i = 6; i < 10; i += 1){
@@ -132,13 +156,16 @@ int main(){
         current = current->getNext();
     }
 
+    //Label and print the list
     cout << "List 2:" << endl;
     printList(head2);
 
+    //Create an new list from the two previous ones
     Node<int>* merged = mergeLists(head1, head2);
+    
+    //Label and print the list
     cout << "Merged List:" << endl;
     printList(merged);
-
 
     return 0;
 }
