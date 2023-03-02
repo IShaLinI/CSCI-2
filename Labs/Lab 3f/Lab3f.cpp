@@ -223,5 +223,8 @@ int main(){
     //Print the size of the list
     cout << "Size of list: " << list->size() << endl;
 
+    //Delete the list
+    list->deleteList();
+
     return 0;
 }
