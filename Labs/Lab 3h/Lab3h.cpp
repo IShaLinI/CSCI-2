@@ -66,9 +66,9 @@ class Athlete : public Student {
         string sport;
 };
 
-
-
 int main(){
+
+    system("CLS");
 
     Person* testPerson = new Person("Kevin", 20);
 

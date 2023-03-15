@@ -7,76 +7,76 @@
 using namespace std;
 
 //Templated node
-template <typename T>
+template <class T>
 class Node {
-    public:
-        Node(){
-            data = T();
-            next = nullptr;
-        };
-        Node(T d){
-            data = d;
-            next = nullptr;
-        };
-        Node(T d, Node* n){
-            data = d;
-            next = n;
-        };
-        T getData(){
-            return data;
-        };
-        Node* getNext(){
-            return next;
-        };
-        void setData(T d){
-            data = d;
-        };
-        void setNext(Node* n) {
-            next = n;
-        };
-    private:
-        T data;
-        Node* next;
+public:
+    Node() {
+        data = T();
+        next = nullptr;
+    };
+    Node(T d) {
+        data = d;
+        next = nullptr;
+    };
+    Node(T d, Node* n) {
+        data = d;
+        next = n;
+    };
+    T getData() {
+        return data;
+    };
+    Node* getNext() {
+        return next;
+    };
+    void setData(T d) {
+        data = d;
+    };
+    void setNext(Node* n) {
+        next = n;
+    };
+private:
+    T data;
+    Node* next;
 };
 
 template <typename T>
-void printList(Node<T>* head){
+void printList(Node<T>* head) {
     Node<T>* current = head;
-    while(current != NULL){
+    while (current != NULL) {
         cout << current->getData() << endl;
         current = current->getNext();
     }
 }
 
 template <typename T>
-void printListReverse(Node<T>* head){
+void printListReverse(Node<T>* head) {
 
     vector<T> data;
 
     Node<T>* current = head;
-    while(current != NULL){
+    while (current != NULL) {
         data.push_back(current->getData());
         current = current->getNext();
     }
 
-    for(int i = data.size() - 1; i >= 0; i--){
+    for (int i = data.size() - 1; i >= 0; i--) {
         cout << data[i] << endl;
     }
 
 }
 
 template <typename T>
-int getListLength(Node<T>* head){
+int getListLength(Node<T>* head) {
     int length = 0;
     Node<T>* current = head;
-    while(current != NULL){
+    while (current != NULL) {
         length++;
         current = current->getNext();
     }
     return length;
 }
 
-int main(){
+int main() {
 
     bool first = true;
 
@@ -84,20 +84,21 @@ int main(){
     Node<string>* head = new Node<string>();
     Node<string>* current = head;
 
-    while(true){
+    while (true) {
         cout << "Enter a string to add to the list:";
         string input;
         getline(cin, input);
-        if(first){
+        if (first) {
             head->setData(input);
             first = false;
-        } else {
-            current->setNext(new Node(input));
+        }
+        else {
+            current->setNext(new Node<string>(input));
             current = current->getNext();
         }
         cout << "Continue? (y/n): ";
         cin >> input;
-        if(input == "n"){
+        if (input == "n") {
             break;
         }
         cin.ignore();
