@@ -84,7 +84,7 @@ int main(){
     string lastNames[10] = {"Card", "Doe", "Smith", "Jones", "Johnson", "Williams", "Brown", "Davis", "Miller", "Wilson"};
 
     //List of employees
-    list<Employee> employees;
+    list<Employee*> employees;
 
     //Add 300 Random Employees
     for(int i = 0; i < 300; i++){
@@ -110,7 +110,7 @@ int main(){
         double salary = rand() % 100000;
 
         //Create Employee
-        Employee employee(firstName, lastName, age, ssn, employeeID, salary);
+        Employee* employee = new Employee(firstName, lastName, age, ssn, employeeID, salary);
 
         //Add Employee to list
         employees.push_back(employee);
@@ -118,8 +118,8 @@ int main(){
     }
 
     //Print all employees
-    for(list<Employee>::iterator i = employees.begin(); i != employees.end(); i++){
-        i->print();
+    for(list<Employee*>::iterator it = employees.begin(); it != employees.end(); it++){
+        (*it)->print();
         cout << endl;
     }
 
@@ -133,6 +133,5 @@ int main(){
     //Count employees
     cout << employees.size() << " Employees after" << endl;
     
-
     return 0;
 }

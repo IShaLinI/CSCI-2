@@ -33,6 +33,28 @@ bool isPalindrome(stack<char> myStack){
     return true;
 }
 
+bool panisPalindrome(stack<char> chars) {
+    stack<char> forward = chars;
+    stack<char> backward;
+
+    while (!chars.empty()) {
+        backward.push(chars.top());
+        chars.pop();
+    }
+
+    while (!forward.empty()) {
+        if (backward.top() == forward.top()) {
+            backward.pop();
+            forward.pop();
+        }
+        else {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 
 int main(){
 
@@ -52,7 +74,7 @@ int main(){
     }
 
     //Check if the stack is a palindrome
-    if(isPalindrome(myStack)){
+    if(panisPalindrome(myStack)){
         cout << "The string is a palindrome" << endl;
     }else{
         cout << "The string is not a palindrome" << endl;
