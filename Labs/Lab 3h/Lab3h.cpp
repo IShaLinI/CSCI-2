@@ -1,6 +1,7 @@
 //Andrew Card
 
 #include <iostream>
+#include <list>
 
 using namespace std;
 
@@ -78,14 +79,21 @@ int main(){
 
     Athlete* testAthlete = new Athlete("James", 18, 4.0, "Basketball");
 
-    testPerson->display();
-    cout << endl;
-    testStudent->display();
-    cout << endl;
-    testStaff->display();
-    cout << endl;
-    testAthlete->display();
+    //List of base classes
+    list<Person*> people;
 
+    //Add objects to list
+    people.push_back(testPerson);
+    people.push_back(testStudent);
+    people.push_back(testStaff);
+    people.push_back(testAthlete);
+
+    //Show all people
+    for (list<Person*>::iterator it = people.begin(); it != people.end(); it++){
+        (*it)->display();
+        cout << endl;
+    }
+    
     //Clean up the objects
     delete testPerson;
     delete testStudent;
