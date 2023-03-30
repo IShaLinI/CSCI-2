@@ -50,12 +50,26 @@ int main(){
                     cout << "Invalid input" << endl;
                     break;
             }
-
             system("cls");
+        }
+
+        if(currentMenu == LOGIN){
+
+            ifstream f("menus/login.txt");
+            
+            char c;
+
+            while(f.get(c)){
+                cout << c;
+            }
+
+            f.close();
+
+            cin >> input;
 
         }
 
-        cout << "You are in the " << currentMenu << " menu" << endl;
+        system("cls");
 
     }
     

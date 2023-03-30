@@ -1,8 +1,8 @@
 =======================
          Login         
 =======================
-| 1 | Login           |
-| 2 | Register        |
-| 3 | Search          |
-| 4 | Logout          |
+|   Esc to go back.   |
+=======================
+| Username:{{Username}}
+| Password:{{Password}}
 =======================
