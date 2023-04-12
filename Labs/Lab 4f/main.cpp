@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include "lib\input_fields.h"
 
 using namespace std;
 
@@ -55,17 +56,12 @@ int main(){
 
         if(currentMenu == LOGIN){
 
-            ifstream f("menus/login.txt");
-            
-            char c;
+            vector<string> output;
 
-            while(f.get(c)){
-                cout << c;
-            }
+            promptUser("menus/login.txt", output);
 
-            f.close();
-
-            cin >> input;
+            cout << "Username: " << output[0] << endl;
+            cout << "Password: " << output[1] << endl;
 
         }
 

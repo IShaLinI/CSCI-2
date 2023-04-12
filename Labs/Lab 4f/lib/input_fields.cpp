@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 
-void promptUser(string templateFilePath, vector<string> output) {
+void promptUser(string templateFilePath, vector<string>* output) {
     // Open the template file for reading
     ifstream templateFile(templateFilePath);
     if (!templateFile) {
@@ -29,7 +29,8 @@ void promptUser(string templateFilePath, vector<string> output) {
                 string userInput;
                 getline(cin, userInput);
 
-                output.push_back(userInput);
+                //Push the user input into the output vector
+                output->push_back(userInput);
 
                 linemodified = true;
                 

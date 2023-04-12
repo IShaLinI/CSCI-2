@@ -1,46 +1,114 @@
-#include <SDL2/SDL.h>
+//Preston Kearnan
+//Lab 5a Two Search functions
 
-int main(int argc, char* argv[])
-{
-    // Initialize SDL
-    SDL_Init(SDL_INIT_VIDEO);
+#include<iostream>
+#include<vector>
 
-    // Create a window
-    SDL_Window* window = SDL_CreateWindow("Set Pixel Color",
-                                          SDL_WINDOWPOS_CENTERED,
-                                          SDL_WINDOWPOS_CENTERED,
-                                          640, 480,
-                                          SDL_WINDOW_SHOWN);
+using namespace std;
 
-    // Create a renderer
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+int linearSearch(vector<int>& arg, int target);
 
-    // Set the color of a pixel at (100, 100) to red
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderDrawPoint(renderer, 100, 100);
+void bubbleSort(vector<int>& arg);
 
-    // Present the renderer
-    SDL_RenderPresent(renderer);
+int binarySearch(vector<int>& arg, int target);
 
-    // Wait for a key press
-    bool running = true;
-    while (running)
-    {
-        SDL_Event event;
-        while (SDL_PollEvent(&event))
-        {
-            if (event.type == SDL_QUIT ||
-                event.type == SDL_KEYDOWN)
-            {
-                running = false;
-            }
+
+int main(void) {
+
+    srand(time(0)); 
+    vector<int> numbers;
+    int n = 100; 
+
+    //1.pop with 100 randos
+    for (int i = 0; i < n; i++) {
+        numbers.push_back(rand() % 1001);
+    }
+
+    //2.Sort vector with any choice
+    bubbleSort(numbers);
+
+
+    //3. Output for the world to see
+    for (int i = 0; i < n; i++) {
+        cout << numbers[i] << endl; 
+    }
+
+
+    //4. UI search for number
+    char userI = 'y'; 
+    do {
+
+        int userR;
+        cout << "Enter a Value to Search for (Values for 1-1000): "; 
+        cin >> userR; 
+
+        if (linearSearch(numbers, userI) != (-1)) {
+            
+            cout << "Linear Search: Integar Found!" << endl;
+
+        }
+        else {
+            cout << "Integar Not Found..." << endl; 
+        }
+
+        if (binarySearch(numbers, userI) != (-1)) {
+
+            cout << "Linear Search: Integar Found!" << endl;
+        }
+        else {
+            cout << "Integar Not Found..." << endl;
+        };
+
+
+        cout << "Would you like to search for another number?(y/n)";
+        cin >> userI; 
+        
+    } while (userI == 'y');
+
+    return 0;
+}
+
+int linearSearch(vector<int>& arg, int target) {
+    for (int i = 0; i < arg.size(); i++) {
+        if (arg[i] == target) {
+            return i;
         }
     }
 
-    // Clean up SDL
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+    return -1;
+}
 
-    return 0;
+void bubbleSort(vector<int>& arg) {
+
+    for (int i = 0; i < arg.size() - 1; i++) {
+
+        for (int j = 0; j < arg.size() - i - 1; j++) {
+
+            if (arg[j] > arg[j + 1]) {
+                int temp = arg[j];
+                arg[j] = arg[j + 1];
+                arg[j + 1] = temp;
+            }
+        }
+    }
+}
+
+int binarySearch(vector<int>& nums, int target) {
+    int left = 0;
+    int right = nums.size() - 1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (nums[mid] == target) {
+            return mid;
+        }
+        else if (nums[mid] < target) {
+            left = mid + 1;
+        }
+        else {
+            right = mid - 1;
+        }
+    }
+    return -1;
 }
