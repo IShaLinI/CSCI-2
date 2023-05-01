@@ -22,7 +22,7 @@ int hashFunction(string ID, int tableSize) {
     for (int i = 0; i < ID.length(); i++) {
         sum += ID[i];
     }
-    
+
     return sum % tableSize;
 }
 
@@ -48,7 +48,7 @@ int main(void) {
 
         //Add the string to the hash table
         hashTable[index].push_back(input);
-        
+
         //print the hash table
 	    simplePrintTable(hashTable, tableSize);
 
