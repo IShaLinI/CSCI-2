@@ -137,13 +137,19 @@ int main(){
 
     double loanAmount;
     double term;
-    double interestRate = 0.024;
+    double interestRate;
 
     cout << "Enter the loan amount: ";
     cin >> loanAmount;
 
     cout << "Enter the term (in years): ";
     cin >> term;
+
+    cout << "Enter the interest rate: ";
+    cin >> interestRate;
+
+    //Convert interest rate to decimal
+    interestRate /= 100;
 
     AmortizationSchedule schedule(loanAmount, interestRate, 5);
 
