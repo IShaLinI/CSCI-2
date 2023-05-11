@@ -77,7 +77,7 @@ class AmortizationSchedule{
             totalPayment = monthlyPayment * numberOfYears * 12;
 
             //Calculate the total interest
-            totalInterest = totalPayment - loanAmount;
+            totalInterest = totalPayment - loanAmount;  
 
             //Calculate the amortization schedule
             double balance = loanAmount;
@@ -151,7 +151,7 @@ int main(){
     //Convert interest rate to decimal
     interestRate /= 100;
 
-    AmortizationSchedule schedule(loanAmount, interestRate, 5);
+    AmortizationSchedule schedule(loanAmount, interestRate, term);
 
     cout << "Loan Amount: " << schedule.getLoanAmount() << endl;
     cout << "Interest Rate: " << schedule.getInterestRate() << endl;
