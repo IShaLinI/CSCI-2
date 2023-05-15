@@ -95,6 +95,7 @@ class CSVFile {
 
         void addEntry(Person p){
             people.push_back(p);
+            sort();
         }
 
         void clearFile(){
@@ -122,6 +123,13 @@ class CSVFile {
                 cout << "Age: " << p.getAge() << endl;
                 cout << "Gender: " << p.getGender() << endl << endl;
             }
+        }
+
+        void sort(){
+            //Sort the list of people by age
+            people.sort([](Person &a, Person &b){
+                return a.getAge() < b.getAge();
+            });
         }
 };
 

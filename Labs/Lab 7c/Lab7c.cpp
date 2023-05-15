@@ -5,95 +5,129 @@
 
 using namespace std;
 
-//Student Class
-class Student{
+class Person{
     private:
         string name;
-        int id;
+
     public:
-        Student(string name, int id){
-            this->name = name;
-            this->id = id;
+        Person(string _name){
+            name = _name;
         }
+
         string getName(){
             return name;
         }
+};
+
+//Student Object inheriting person
+class Student : public Person{
+    private:
+        int id;
+
+        //Generate a unique 5 digit id with no leading 0s
+        int generateId(vector<int> usedIds){
+            int id = rand() % 100000;
+            while(id < 10000){
+                id = rand() % 100000;
+            }
+            for(int i = 0; i < usedIds.size(); i++){
+                if(id == usedIds[i]){
+                    id = generateId(usedIds);
+                }
+            }
+            return id;
+        }
+
+    public:
+        Student(string _name, vector<int> usedIds) : Person(_name){
+            //Generate unique id
+            id = generateId(usedIds);
+        }
+
         int getId(){
             return id;
         }
-};
-
-//Hash Table of Strudents
-class HashTable{
-    private:
-        int size;
-        Student** table;
-    public:
-        HashTable(int size){
-            this->size = size;
-            table = new Student*[size];
-            for(int i = 0; i < size; i++){
-                table[i] = NULL;
-            }
-        }
-        void insert(Student* student){
-            int index = student->getId() % size;
-            table[index] = student;
-        }
-        Student* get(int id){
-            int index = id % size;
-            return table[index];
-        }
-
-        vector<int> getUsedIds(){
-            vector<int> usedIds;
-            for(int i = 0; i < size; i++){
-                if(table[i] != NULL){
-                    usedIds.push_back(table[i]->getId());
-                }
-            }
-            return usedIds;
-        }
 
         void print(){
-            for(int i = 0; i < size; i++){
-                if(table[i] != NULL){
-                    cout << table[i]->getName() << endl;
+            cout << "Name: " << getName() << endl;
+            cout << "ID: " << getId() << endl;
+        }
+};
+
+//Hash Tabel Object
+class HashTable{
+    private:
+        vector<Student> table[5];
+
+        //Vector for storing used ids
+        vector<int> usedIds;
+
+        //Hash function
+        int hash(string name){
+            int sum = 0;
+            for(int i = 0; i < name.length(); i++){
+                sum += name[i];
+            }
+            return sum % 5;
+        }
+
+    public:
+
+        //Add student to hash table
+        void addStudent(Student s){
+            int index = hash(s.getName());
+            table[index].push_back(s);
+            usedIds.push_back(s.getId());
+        }
+
+        //Print all students in hash table
+        void print(){
+            for(int i = 0; i < 5; i++){
+                cout << "Bucket " << i << endl;
+                for(int j = 0; j < table[i].size(); j++){
+                    table[i][j].print();
                 }
             }
         }
 
+        //Search by name
+        Student search(string name){
+            int index = hash(name);
+            for(int i = 0; i < table[index].size(); i++){
+                if(table[index][i].getName() == name){
+                    return table[index][i];
+                }
+            }
+            return Student("Not Found", usedIds);
+        }
+
+        //Get used ids
+        vector<int> getUsedIds(){
+            return usedIds;
+        }
 };
 
-//Generate unique 5 digit id
-int generateId(vector<int> usedIds){
-    int id = rand() % 90000 + 10000;
-    for(int i = 0; i < usedIds.size(); i++){
-        if(id == usedIds[i]){
-            return generateId(usedIds);
-        }
-    }
-    return id;
-}
-
 int main(){
-    
-    //Student name bank
-    string names[] = {"Andrew", "Bob", "Charlie", "David", "Ethan", "Frank", "George", "Henry", "Isaac", "John", "Kevin", "Larry", "Michael", "Nathan", "Oscar", "Peter", "Quentin", "Robert", "Steven", "Thomas", "Ulysses", "Victor", "William", "Xavier", "Yuri", "Zachary"};
 
-    //Create Hash Table
-    HashTable* table = new HashTable(5);
+    //List of student names
+    string names[10] = {"Andrew", "Bob", "Charlie", "David", "Ethan", "Frank", "George", "Henry", "Isaac", "John"};
 
-    //Insert 100 random students
+    //Create hash table
+    HashTable ht;
+
+    //Add students to hash table
     for(int i = 0; i < 10; i++){
-        int id = generateId(table->getUsedIds());
-        string name = names[rand() % 26];
-        Student* student = new Student(name, id);
-        table->insert(student);
+        Student s(names[i], ht.getUsedIds());
+        ht.addStudent(s);
     }
 
-    //Print all students
-    table->print();
+    //Print hash table
+    ht.print();
+
+    cout << endl << endl;
+
+    //Search for student
+    ht.search("Ethan").print();
 
     return 0;
 }
